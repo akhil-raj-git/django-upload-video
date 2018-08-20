@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function(){
+
+        displayVideo();
+
+        $('#videoform').submit(function(e){
+                if(confirm("Your video has been uploaded. Because Django is not a real-time framework, You may have to refresh the page due to the time it takes for the database to update")){
+                    window.location.reload(); 
+                }
+        });
+        function displayVideo(){
+            $(".video").append('<br><br> <video width="400" controls><source src="{{ MEDIA_URL }}{{ videofile }}" type="video/mp4">Your browser does not support the video tag.</video><br><br></p>');
+        }
+    });
+        
+
+</script>
+<meta charset="UTF-8">
+<title>Upload Video</title>
+</head>
+<body>
+
+<h1>Uploading Video Test</h1>
+<form enctype="multipart/form-data" method="POST" action="" id="videoform">
+{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Upload" id="submit"/>
+</form>
+
+<div class="loader"></div>
+<div class="video">
+
+</div>
+
+</body>
+</html>
